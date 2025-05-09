@@ -1,7 +1,7 @@
 """Just simple toolkit used for basic sudoku generation & editing"""
 
 ERROR_VAL_INIT = "Invalid value. E.g. 'sector_dimensions' are always > 2 and 'fill_charset' is > sector_dimensions[0]*sector_dimensions[1]"
-ERROR_VAL_GET_N = "Invalid value. 'n' must always be > 0 when accessing rows and columns"
+ERROR_VAL_GET_N = "Invalid value. 'n' must always be > 0 and < sector's width*height when accessing rows and columns. Also value 'chr' should belong to 'fill_charset' and be 1 char length"
 
 class Sudoku:
     """Sudoku class - used for everything"""
@@ -34,20 +34,22 @@ class Sudoku:
     
     # Gets sector with idx N
     def get_sector(self, n : int):
-        t = []
         if n > 0 and n <= self.__sector_width*self.__sector_height:
-            for i in range(((n-1)//self.__sector_height)*self.__sector_height+1, ((n-1)//self.__sector_height)*self.__sector_height+self.__sector_height+1, 1):
-                t.extend(self.get_row(i)[3-(n%3)])
-            return t
+            __t = []
+            for i in range((n-1)//self.__sector_height*self.__sector_height+1, (n-1)//self.__sector_height*self.__sector_height+self.__sector_height+1, 1):
+                __t.extend(self.get_row(i)[(self.__sector_height-1-(self.__sector_height*self.__sector_width-n)%self.__sector_height)*self.__sector_width : (self.__sector_height-1-(self.__sector_height*self.__sector_width-n)%self.__sector_height)*self.__sector_width + self.__sector_width])
+            return __t
         else:
             raise ValueError(ERROR_VAL_GET_N)
-    
-
-if __name__ == "__main__":
-    sudoku = Sudoku([3, 3], "123456789")
-    print(sudoku.get_grid())
-    print("________________________________")
-    print(sudoku.get_column(1))
-    print(sudoku.get_row(1))
-    print(sudoku.get_sector(9))
-    
+    # Gets cell with idx N
+    def get_cell(self, n : int):
+        if n > 0 and n <= (self.__sector_width*self.__sector_height)**2:
+            return self.__grid[n-1]
+        else:
+            raise ValueError(ERROR_VAL_GET_N)
+    # Sets cell with idx N
+    def set_cell(self, n : int, val : str):
+        if n > 0 and n <= (self.__sector_width*self.__sector_height)**2 and len(val) == 1 and (val in self.__fill_charset):
+            self.__grid[n-1][0] = val 
+        else:
+            raise ValueError(ERROR_VAL_GET_N)
