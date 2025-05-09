@@ -21,7 +21,7 @@ class Sudoku:
     # Gets row with idx N
     def get_row(self, n : int):
         if n > 0 and n <= self.__sector_width*self.__sector_height:
-            return self.__grid[(n-1)*(self.__sector_width*self.__sector_height):n*(self.__sector_width*self.__sector_height):]
+            return self.__grid[(n-1)*(self.__sector_width*self.__sector_height):n*(self.__sector_width*self.__sector_height)]
         else:
             raise ValueError(ERROR_VAL_GET_N)
 
