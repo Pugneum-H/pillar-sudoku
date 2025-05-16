@@ -82,7 +82,33 @@ class Sudoku:
                     # print(f"{__t[h*self.__sector_width*self.__sector_height + v][0]} {v*self.__sector_width*self.__sector_height + h} {h*self.__sector_width*self.__sector_height + v}")
                     # self.__grid[v*self.__sector_width*self.__sector_height + h] = __t[h*self.__sector_width*self.__sector_height + v]
                     self.__grid.append(__t[h*self.__sector_width*self.__sector_height + v])
-                    
+        
+        def __exchange_sector_rows():
+            __t01 = random.randint(0, self.__sector_width*self.__sector_height-1)
+            __t02 = __t01
+            while  __t02 in range(__t01//self.__sector_width*self.__sector_height, __t01//self.__sector_width*self.__sector_height + self.__sector_height):
+                __t02 = random.randint(0, self.__sector_width*self.__sector_height-1)
+            __t01 = __t01//self.__sector_height*self.__sector_width*self.__sector_height * self.__sector_height
+            __t02 = __t02//self.__sector_height*self.__sector_width*self.__sector_height * self.__sector_height
+            for rows in range(self.__sector_height):
+                for cell in range(self.__sector_width*self.__sector_height):
+                    self.__grid[__t01 + rows*self.__sector_width*self.__sector_height + cell], self.__grid[__t02 + rows*self.__sector_width*self.__sector_height + cell] = self.__grid[__t02 + rows*self.__sector_width*self.__sector_height + cell], self.__grid[__t01 + rows*self.__sector_width*self.__sector_height + cell]
+
+        def __exchange_sector_columns():
+            __t01 = random.randint(0, self.__sector_width*self.__sector_height-1)
+            __t02 = __t01
+            while  __t02 in range(__t01//self.__sector_height*self.__sector_width, __t01//self.__sector_height*self.__sector_width + self.__sector_width, self.__sector_height):
+                __t02 = random.randint(0, self.__sector_width*self.__sector_height-1)
+            __t01 = __t01//self.__sector_height*self.__sector_width*self.__sector_height * self.__sector_height
+            __t02 = __t02//self.__sector_height*self.__sector_width*self.__sector_height * self.__sector_height
+            
+
+
+                   
+
+
+        
+
 
 
         __t = random.randint(0, self.__sector_width*self.__sector_height - 1)
@@ -94,18 +120,20 @@ class Sudoku:
                 self.__grid[vertical*self.__sector_width*self.__sector_height + horizontal] = [(self.__fill_charset[(vertical%self.__sector_height)*self.__sector_width + vertical//self.__sector_height:] + self.__fill_charset[:(vertical%self.__sector_height)*self.__sector_width + vertical//self.__sector_height])[horizontal],
                                                                                                (self.__fill_charset[(vertical%self.__sector_height)*self.__sector_width + vertical//self.__sector_height:] + self.__fill_charset[:(vertical%self.__sector_height)*self.__sector_width + vertical//self.__sector_height])[horizontal]]
 
-        for i in range(random.randint(self.__rnd_steps, self.__rnd_steps^2)):
-            __exchange_rows()
-        for i in range(random.randint(self.__rnd_steps, self.__rnd_steps^2)):
-            __exchange_columns()
-        for i in range(random.randint(self.__rnd_steps, self.__rnd_steps^2)):
-            __transpose()
-            
-        
-        
+        # for i in range(random.randint(self.__rnd_steps, self.__rnd_steps^2)):
+        #     __exchange_rows()
+        # for i in range(random.randint(self.__rnd_steps, self.__rnd_steps^2)):
+        #     __exchange_columns()
+        # for i in range(random.randint(self.__rnd_steps, self.__rnd_steps^2)):
+        #     __transpose()
+        __exchange_sector_columns()
+
         return self.__grid
 
                     
+
+
+
 
 
 
@@ -114,10 +142,7 @@ if __name__ == "__main__":
     sudoku.generate()
     grid = sudoku.get_grid()
     a = 9
-    for v_ in range(a):
-        for h_ in range(a):
-            print(f"[{grid[v_*a + h_][0]}]", end="")
-        print("\n", end="")
+    
         
     for i in range(a):
         if len(sudoku.get_row(i+1)) == len(list(set(tuple(x) for x in (sudoku.get_row(i+1))))): print(str(i) + " OK") 
@@ -128,4 +153,9 @@ if __name__ == "__main__":
     for i in range(a):
         if len(sudoku.get_sector(i+1)) == len(list(set(tuple(x) for x in (sudoku.get_sector(i+1))))): print(str(i) + " OK") 
         else: print(str(i) + "!!!!!!!!!!!!!!!!!!!!!!")     
+    
+    for v_ in range(a):
+        for h_ in range(a):
+            print(f"[{grid[v_*a + h_][0]}]", end="")
+        print("\n", end="")
          
