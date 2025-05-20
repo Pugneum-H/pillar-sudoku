@@ -153,9 +153,3 @@ class Sudoku:
 
 
 
-
-if __name__ == "__main__":
-    sudoku = Sudoku([3, 3], "123456789")
-    sudoku.generate()
-    print(sudoku.check())
-    
