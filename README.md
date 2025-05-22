@@ -69,4 +69,14 @@
 > + `complete` - indicates whether the table is **full or not**.
 <br>
 
+## Gallery
+![fully generated 3x3 sector Sudoku](https://github.com/user-attachments/assets/7f81440f-e2cd-4817-803b-d6bee881972a) <br>
+**Fully generated Sudoku field (3x3 sector)**
+<br><br>
+![image](https://github.com/user-attachments/assets/c152f406-1225-4c71-858b-a27a09d32cf7) <br>
+**Sudoku field with removed cells (ratio = 0.3)**
+
+<br>
+
+**...**
 
