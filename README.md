@@ -16,7 +16,7 @@
 + Setting cells (only those that are missing).
 <br><br>
 > [!NOTE]
-> _(It is only a tool, no GUI/TUI provided yet.)_
+> _(It is only a toolkit, no GUI/TUI provided yet)._
 
 
 <br><br>
