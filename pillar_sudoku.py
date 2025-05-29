@@ -157,4 +157,10 @@ class Sudoku:
             
         
         return flag, complete
-                    
+    
+
+    def set_grid(self, grid : list[str]):
+        if len(grid) == self.__sector_width*self.__sector_height and self.check(grid)[0] == True:
+            self.__grid == grid
+        else:
+            pass
