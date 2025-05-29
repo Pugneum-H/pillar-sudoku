@@ -153,14 +153,12 @@ class Sudoku:
             flag = bool(len([i for i in self.get_column(i+1) if i != " "]) == len([i for i in set(self.get_column(i+1)) if i != " "]))
             flag = bool(len([i for i in self.get_sector(i+1) if i != " "]) == len([i for i in set(self.get_sector(i+1)) if i != " "]))
         for i in range((self.__sector_width*self.__sector_height)**2):
-            print(str(i) + "<----------------")
-            print("SELF GRID" + str(self.__grid))
             if self.__grid[i] == " ": complete = False; break
             
         
         return flag, complete
     
-    # sets grid, ignoring all rules
+
     def set_grid(self, grid : list[str]):
         if all(_ in self.__fill_charset or _ == " " for _ in grid) and len(grid) == (self.__sector_width*self.__sector_height)**2:
             self.__grid = grid
