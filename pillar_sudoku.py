@@ -148,13 +148,15 @@ class Sudoku:
     def check(self):
         flag = False
         complete = True
-        for i in range(self.__sector_width*self.__sector_height):
-            flag = bool(len([i for i in self.get_row(i+1) if i != " "]) == len([i for i in set(self.get_row(i+1)) if i != " "]))
-            flag = bool(len([i for i in self.get_column(i+1) if i != " "]) == len([i for i in set(self.get_column(i+1)) if i != " "]))
-            flag = bool(len([i for i in self.get_sector(i+1) if i != " "]) == len([i for i in set(self.get_sector(i+1)) if i != " "]))
+        flag = all(
+            len([i for i in self.get_row(u+1) if i != " "]) == len(set(i for i in self.get_row(u+1) if i != " ")) and
+            len([i for i in self.get_column(u+1) if i != " "]) == len(set(i for i in self.get_column(u+1) if i != " ")) and
+            len([i for i in self.get_sector(u+1) if i != " "]) == len(set(i for i in self.get_sector(u+1) if i != " "))
+            for u in range(self.__sector_width * self.__sector_height)
+        )
         for i in range((self.__sector_width*self.__sector_height)**2):
             if self.__grid[i] == " ": complete = False; break
-            
+       
         
         return flag, complete
     
